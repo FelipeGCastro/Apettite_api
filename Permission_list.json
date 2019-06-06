@@ -1,0 +1,42 @@
+[
+  {
+    "slug": "create_product",
+    "name": "Create product",
+    "description": "create Product on app"
+  },
+  {
+    "slug": "update_product",
+    "name": "Update product",
+    "description": "update Product on app"
+  },
+  {
+    "slug": "delete_product",
+    "name": "Delete product",
+    "description": "Delete Product on app"
+  },
+  {
+    "slug": "read_product",
+    "name": "Read product",
+    "description": "Read Product on app"
+  },
+  {
+    "slug": "create_product_files",
+    "name": "Create files",
+    "description": "Create files on app"
+  },
+  {
+    "slug": "update_product_files",
+    "name": "Update files",
+    "description": "Update files on app"
+  },
+  {
+    "slug": "read_product_files",
+    "name": "Read files",
+    "description": "Read files on app"
+  },
+  {
+    "slug": "delete_product_files",
+    "name": "Delete files",
+    "description": "Delete files on app"
+  }
+]
