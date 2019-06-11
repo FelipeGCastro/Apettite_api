@@ -9,6 +9,8 @@ class OrderController {
     const orders = await Order.query()
       .where('customer_id', id)
       .with('provider')
+      .with('product')
+      .orderBy('updated_at', 'desc')
       .fetch()
 
     return orders
@@ -58,9 +60,8 @@ class OrderController {
     const product = await Product.findOrFail(order.product_id)
     const amount = request.input('amount')
     const amountPrice = product.price * amount
-    console.log(amount, order.amount)
     const data = {
-      pending_amount: order.pending_amount + amount,
+      pending_amount: parseInt(order.pending_amount) + parseInt(amount),
       total_price_pending:
         parseFloat(order.total_price_pending) + parseFloat(amountPrice),
       total_amount_paid: null,

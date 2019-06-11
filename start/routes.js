@@ -3,9 +3,9 @@
 const Route = use('Route')
 
 Route.post('users', 'UserController.store').validator('User')
+Route.get('users', 'UserController.index')
 Route.put('users/:id', 'UserController.update')
 Route.post('sessions', 'SessionController.store').validator('Session')
-Route.get('sessions', 'SessionController.check')
 
 Route.post('passwords', 'ForgotPasswordController.store').validator(
   'ForgotPassword'
@@ -15,6 +15,7 @@ Route.put('passwords', 'ForgotPasswordController.update').validator(
 )
 
 Route.group(() => {
+  Route.get('sessions', 'SessionController.show')
   // Route.get('product/:id/files', 'ProductFileController.index')
   // Route.get('product/:id/files/:fileId', 'ProductFileController.show')
   // Route.post('product/:id/files', 'ProductFileController.store')
@@ -28,6 +29,8 @@ Route.group(() => {
   Route.resource('products', 'ProductController')
     .apiOnly()
     .validator(new Map([[['product.store'], ['Product']]]))
+
+  Route.get('myproducts', 'ProductController.myProducts')
 
   // ORDER PART
 
@@ -46,7 +49,8 @@ Route.group(() => {
   Route.resource('products.bookings', 'BookingController')
     .apiOnly()
     .except(['index'])
-}).middleware(['auth', 'is:(administrator || moderator || user)'])
+}).middleware(['auth'])
+// .middleware(['auth', 'is:(administrator || moderator || user)'])
 
 Route.resource('permissions', 'PermissionController')
   .apiOnly()

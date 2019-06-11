@@ -4,6 +4,14 @@ const User = use('App/Models/User')
 const Database = use('Database')
 
 class UserController {
+  async index ({ request }) {
+    const { page } = request.get()
+    const users = await User.query()
+      .paginate(page)
+
+    return users
+  }
+
   async store ({ request }) {
     const { permissions, roles, ...data } = request.only([
       'first_name',

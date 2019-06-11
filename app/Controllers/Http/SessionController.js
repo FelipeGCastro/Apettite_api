@@ -8,13 +8,10 @@ class SessionController {
 
     return token
   }
-  async check ({ auth, response }) {
-    try {
-      await auth.check()
-      return auth.user.token
-    } catch (error) {
-      return response.send('You are not logged in')
-    }
+  async show ({ auth }) {
+    const { id } = auth.user
+
+    return id
   }
 }
 

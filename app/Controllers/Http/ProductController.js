@@ -5,10 +5,19 @@ const User = use('App/Models/User')
 
 class ProductController {
   async index ({ request }) {
-    const { page } = request.get()
+    // const { page } = request.get()
     const products = await Product.query()
       .with('user')
-      .paginate(page)
+      .fetch()
+
+    return products
+  }
+  async myProducts ({ auth }) {
+    const { id } = auth.user
+    const products = await Product.query()
+      .where('provider_id', parseInt(id))
+      .with('orders')
+      .fetch()
 
     return products
   }
@@ -17,24 +26,20 @@ class ProductController {
     const { id } = auth.user
     const user = await User.findOrFail(id)
 
-    const data = request.only([
-      'name',
-      'description',
-      'price',
-      'public',
-      'available'
-    ])
+    const data = request.only(['name', 'description', 'price'])
 
     const product = Product.create({ ...data, provider_id: id })
     user.merge({ provider: true })
     await user.save()
+
     return product
   }
 
   async show ({ params }) {
     const product = await Product.findOrFail(params.id)
 
-    await product.loadMany(['user', 'files'])
+    await product.load('user')
+
     return product
   }
 
