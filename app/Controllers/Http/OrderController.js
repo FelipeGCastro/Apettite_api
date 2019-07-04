@@ -15,6 +15,18 @@ class OrderController {
 
     return orders
   }
+  async productOrders ({ auth, params }) {
+    const { id } = auth.user
+    const orders = await Order.query()
+      .where('provider_id', id)
+      .andWhere('product_id', params.id)
+      .with('product')
+      .with('customer')
+      .orderBy('updated_at', 'desc')
+      .fetch()
+
+    return orders
+  }
 
   async store ({ auth, request, params, response }) {
     const { id } = auth.user

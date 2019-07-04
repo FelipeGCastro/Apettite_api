@@ -2,6 +2,7 @@
 
 const Product = use('App/Models/Product')
 const User = use('App/Models/User')
+const Helpers = use('Helpers')
 
 class ProductController {
   async index ({ request }) {
@@ -22,7 +23,7 @@ class ProductController {
     return products
   }
 
-  async store ({ auth, request }) {
+  async store ({ auth, request, response }) {
     const { id } = auth.user
     const user = await User.findOrFail(id)
 
@@ -32,6 +33,7 @@ class ProductController {
     user.merge({ provider: true })
     await user.save()
 
+    // return product
     return product
   }
 

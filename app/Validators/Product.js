@@ -8,8 +8,7 @@ class Product {
     return {
       name: 'required',
       description: 'required',
-      price: 'required',
-      public: 'required'
+      price: 'required'
     }
   }
 

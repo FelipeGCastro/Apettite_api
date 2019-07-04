@@ -5,6 +5,7 @@ const Model = use('Model')
 
 /** @type {import('@adonisjs/framework/src/Hash')} */
 const Hash = use('Hash')
+const Env = use('Env')
 
 class User extends Model {
   static boot () {
@@ -20,13 +21,20 @@ class User extends Model {
       }
     })
   }
+  static get computed () {
+    return ['url']
+  }
+
+  getUrl ({ avatar }) {
+    return `${Env.get('APP_URL')}/avatar/${avatar}`
+  }
 
   tokens () {
     return this.hasMany('App/Models/Token')
   }
 
   products () {
-    return this.hasMany('App/Models/Product')
+    return this.hasMany('App/Models/Product', 'id', 'provider_id')
   }
 
   orders () {

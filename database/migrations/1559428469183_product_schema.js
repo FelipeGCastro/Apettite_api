@@ -13,8 +13,7 @@ class ProductSchema extends Schema {
         .notNullable()
       table
         .foreign('provider_id')
-        .references('id')
-        .inTable('users')
+        .references('users.id')
         .onUpdate('CASCADE')
         .onDelete('SET NULL')
 

@@ -9,9 +9,9 @@ class SessionController {
     return token
   }
   async show ({ auth }) {
-    const { id } = auth.user
+    const user = auth.user
 
-    return id
+    return user
   }
 }
 

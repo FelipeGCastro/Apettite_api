@@ -8,8 +8,8 @@ class ProductFile extends Model {
     return ['url']
   }
 
-  getUrl ({ id, path }) {
-    return `${Env.get('APP_URL')}/product/${id}/files/${path}`
+  getUrl ({ id, product_id }) {
+    return `${Env.get('APP_URL')}/products/${product_id}/files/${id}`
   }
 
   product () {
